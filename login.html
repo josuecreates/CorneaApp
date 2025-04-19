@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CORNEAAPP | Transplante de Córnea</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1a5276;         /* Azul médico */
+            --hover-blue: #2980b9;           /* Azul hover */
+            --error-red: #e74c3c;            /* Vermelho para erros */
+            --success-green: #27ae60;        /* Verde hospitalar */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .brand-header {
+            margin-bottom: 2rem;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            font-size: 2.2rem;
+            color: var(--success-green);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(26, 82, 118, 0.1);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+        }
+
+        .sso-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .sso-btn {
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sso-btn:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .sso-btn.google {
+            border-color: #DB4437;
+            color: #DB4437;
+        }
+
+        .sso-btn.hospital {
+            border-color: var(--success-green);
+            color: var(--success-green);
+        }
+
+        .login-btn {
+            background: var(--primary-blue);
+            color: white;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background: var(--hover-blue);
+            transform: translateY(-2px);
+        }
+
+        .footer-links {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .version-info {
+            margin-top: 1.5rem;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* Mensagens de erro/sucesso */
+        .alert {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert-error {
+            background: #fee;
+            border: 1px solid var(--error-red);
+            color: var(--error-red);
+        }
+
+        .alert-success {
+            background: #effaf1;
+            border: 1px solid var(--success-green);
+            color: var(--success-green);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="brand-header">
+            <div class="brand-logo">
+                <i class="fas fa-eye logo-icon"></i>
+                <span>CORNEAAPP</span>
+            </div>
+            <p style="color: #555; margin-top: 8px;">Sistema de Transplante de Córnea</p>
+        </div>
+
+        <div class="alert alert-error" id="errorAlert"></div>
+        <div class="alert alert-success" id="successAlert"></div>
+
+        <div class="form-group">
+            <label class="form-label">E-mail Institucional</label>
+            <input type="email" class="input-field" placeholder="exemplo@hospital.com" id="email" required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Senha</label>
+            <div class="password-wrapper">
+                <input type="password" class="input-field" placeholder="••••••••" id="password" required>
+                <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
+            </div>
+        </div>
+
+        <button class="login-btn" id="loginBtn">
+            <i class="fas fa-sign-in-alt"></i> Acessar Sistema
+        </button>
+
+        <div class="sso-buttons">
+            <button class="sso-btn google">
+                <i class="fab fa-google"></i> Google
+            </button>
+            <button class="sso-btn hospital">
+                <i class="fas fa-hospital"></i> Rede Hospitalar
+            </button>
+        </div>
+
+        <div class="footer-links">
+            <a href="#"><i class="fas fa-lock"></i> Esqueceu a senha?</a>
+        </div>
+
+        <div class="version-info">
+            v2.7.1 | © 2023 CORNEAAPP | Atualizado em 15/10/2023
+        </div>
+    </div>
+
+    <script>
+        // Alternar visibilidade da senha
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this;
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            }
+        });
+
+        // Simulação de login
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorAlert = document.getElementById('errorAlert');
+            const successAlert = document.getElementById('successAlert');
+
+            // Validação básica
+            if (!email || !password) {
+                errorAlert.textContent = "Preencha todos os campos obrigatórios!";
+                errorAlert.style.display = 'block';
+                return;
+            }
+
+            // Simular autenticação
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Autenticando...';
+            this.disabled = true;
+
+            setTimeout(() => {
+                successAlert.textContent = "Login realizado com sucesso! Redirecionando...";
+                successAlert.style.display = 'block';
+                errorAlert.style.display = 'none';
+                
+                // Redirecionamento fictício
+                setTimeout(() => window.location.href = "#", 1500);
+            }, 2000);
+        });
+
+        // Ação para SSO
+        document.querySelectorAll('.sso-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const provider = btn.classList.contains('google') ? 'Google' : 'Rede Hospitalar';
+                alert(`Redirecionando para autenticação via ${provider}`);
+            });
+        });
+    </script>
+</body>
+</html>

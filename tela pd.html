@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorneaApp - Login</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --light: #ecf0f1;
+            --text-dark: #333;
+            --text-light: #777;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .login-header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .login-body {
+            padding: 30px;
+        }
+        
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .welcome-message h2 {
+            color: var(--primary);
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+        
+        .welcome-message p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .switch-form a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .switch-form a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Estilo para o formulário de cadastro (inicialmente oculto) */
+        #register-form {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>CorneaApp</h1>
+        </div>
+        
+        <div class="login-body">
+            <!-- Formulário de Login -->
+            <div id="login-form">
+                <div class="welcome-message">
+                    <h2>Bem-Vindo de volta</h2>
+                    <p>Acesse sua conta agora mesmo</p>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">EMAIL</label>
+                        <input type="email" id="email" placeholder="seu@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">SENHA</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">ENTRAR</button>
+                </form>
+                
+                <div class="switch-form">
+                    Não tem uma conta? <a href="#" onclick="showRegister()">Crie sua conta</a>
+                </div>
+            </div>
+            
+            <!-- Formulário de Cadastro -->
+            <div id="register-form">
+                <div class="welcome-message">
+                    <h2>Crie sua conta</h2>
+                    <p>Cadastre seus dados</p>
+                </div>
+                
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="name">NOME</label>
+                        <input type="text" id="name" placeholder="Seu nome completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-email">EMAIL</label>
+                        <input type="email" id="new-email" placeholder="seu@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-password">SENHA</label>
+                        <input type="password" id="new-password" placeholder="••••••••" required minlength="6">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">CADASTRAR</button>
+                </form>
+                
+                <div class="switch-form">
+                    Já tem uma conta? <a href="#" onclick="showLogin()">Faça login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Alternar entre formulários de login e cadastro
+        function showRegister() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('register-form').style.display = 'block';
+        }
+        
+        function showLogin() {
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        }
+        
+        // Inicialmente mostra o formulário de login
+        showLogin();
+        
+        // Simulação de login (substituir por lógica real)
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Aqui você faria a validação com o backend
+            console.log('Tentativa de login:', email, password);
+            alert('Login simulado - implementar lógica real');
+        });
+        
+        // Simulação de cadastro (substituir por lógica real)
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('new-email').value;
+            const password = document.getElementById('new-password').value;
+            
+            // Aqui você faria o cadastro no backend
+            console.log('Tentativa de cadastro:', name, email, password);
+            alert('Cadastro simulado - implementar lógica real');
+            
+            // Volta para o login após cadastro
+            showLogin();
+            document.getElementById('email').value = email;
+        });
+    </script>
+</body>
+</html>
