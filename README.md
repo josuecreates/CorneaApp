@@ -99,7 +99,7 @@
 
 ## ✅ Benefícios
 
-- ✔ Redução de erros em prontuários manuais.
+- ✔ Atualização em tempo real.
 - ✔ Transparência na fila de espera para transplantes.
 - ✔ Centralização de dados para estudos e pesquisas científicas.
 - ✔ Eficiência e rastreabilidade em todas as etapas do processo.
